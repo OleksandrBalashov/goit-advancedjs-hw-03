@@ -7,6 +7,7 @@ export default defineConfig(({ command }) => {
   return {
     define: {
       [command === 'serve' ? 'global' : '_global']: {},
+      'process.env': process.env,
     },
     root: 'src',
     build: {
