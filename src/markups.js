@@ -1,9 +1,3 @@
-function createMarkupOption(collection) {
-  return collection
-    .map(({ name, id }) => `<option value="${id}" id="${id}">${name}</option>`)
-    .join('');
-}
-
 function createCatInfoMarkup(data) {
   return data.breeds
     .map(
@@ -19,4 +13,4 @@ function createCatInfoMarkup(data) {
     .join('');
 }
 
-export { createMarkupOption, createCatInfoMarkup };
+export { createCatInfoMarkup };

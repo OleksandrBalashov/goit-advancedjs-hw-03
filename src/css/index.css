@@ -12,6 +12,8 @@ p {
 }
 
 .breed-select {
+  max-width: 600px;
+  height: 40px;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 40px;

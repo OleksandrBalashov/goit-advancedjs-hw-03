@@ -1,8 +1,12 @@
+import SlimSelect from 'slim-select';
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
-import { createMarkupOption, createCatInfoMarkup } from './createMarkup';
-import iziToast from 'izitoast';
+import { createCatInfoMarkup } from './markups';
+import { errorToast } from './notifications';
+import 'slim-select/styles';
 import 'izitoast/dist/css/iziToast.min.css';
 import 'normalize.css';
+
+let initialize = false;
 
 const refs = {
   select: document.querySelector('.breed-select'),
@@ -10,11 +14,33 @@ const refs = {
   catInfo: document.querySelector('.cat-info'),
 };
 
-refs.select.style.display = 'none';
+const select = new SlimSelect({
+  select: refs.select,
+  settings: {
+    placeholderText: 'Filter cats breeds',
+    disabled: true,
+  },
+});
+
+setIsFetching(true);
+fetchBreeds()
+  .then(({ data }) => {
+    select.setData(data.map(({ id, name }) => ({ value: id, text: name })));
+    initialize = true;
+    select.enable();
+  })
+  .catch(() => errorToast())
+  .finally(() => setIsFetching(false));
 
 refs.select.addEventListener('change', ({ target: { value } }) => {
+  if (!initialize) return;
+
+  select.disable();
+
   refs.catInfo.innerHTML = '';
+
   setIsFetching(true);
+
   fetchCatByBreed(value)
     .then(({ data }) => {
       const [responce] = data;
@@ -22,25 +48,11 @@ refs.select.addEventListener('change', ({ target: { value } }) => {
       if (!responce) throw new Error();
 
       refs.catInfo.innerHTML = createCatInfoMarkup(responce);
+      select.enable();
     })
-    .catch(() => {
-      iziToast.show({
-        title: 'Oops!',
-        message: 'Something went wrong! Try reloading the page!',
-        color: 'red',
-        position: 'topRight',
-      });
-    })
+    .catch(() => errorToast())
     .finally(() => setIsFetching(false));
 });
-
-setIsFetching(true);
-fetchBreeds()
-  .then(({ data }) => {
-    refs.select.innerHTML = createMarkupOption(data);
-    refs.select.style.display = 'block';
-  })
-  .finally(() => setIsFetching(false));
 
 function setIsFetching(value) {
   value
