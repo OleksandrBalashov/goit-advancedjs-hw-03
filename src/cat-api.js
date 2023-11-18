@@ -12,7 +12,7 @@ const fetchCatByBreed = breedId => {
     breed_ids: breedId,
   });
 
-  return axios.get(`/images/search?${params}/asdsadasda`);
+  return axios.get(`/images/search?${params}`);
 };
 
 export { fetchBreeds, fetchCatByBreed };
