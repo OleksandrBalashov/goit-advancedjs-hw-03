@@ -2,6 +2,7 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import { createMarkupOption, createCatInfoMarkup } from './createMarkup';
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
+import 'normalize.css';
 
 const refs = {
   select: document.querySelector('.breed-select'),
