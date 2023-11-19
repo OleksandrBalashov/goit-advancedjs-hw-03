@@ -1,9 +1,9 @@
 import{a as l,i as p,S as m}from"./assets/vendor-6c80cb93.js";(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))i(e);new MutationObserver(e=>{for(const o of e)if(o.type==="childList")for(const d of o.addedNodes)d.tagName==="LINK"&&d.rel==="modulepreload"&&i(d)}).observe(document,{childList:!0,subtree:!0});function s(e){const o={};return e.integrity&&(o.integrity=e.integrity),e.referrerpolicy&&(o.referrerPolicy=e.referrerpolicy),e.crossorigin==="use-credentials"?o.credentials="include":e.crossorigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function i(e){if(e.ep)return;e.ep=!0;const o=s(e);fetch(e.href,o)}})();const h="live_zCoIfZgI2pTuINdDO1yjDpbgcwKA9fmB1Fcl70UrefaGBjTUS9X0S4AtHVTqNUNC";l.defaults.baseURL="https://api.thecatapi.com/v1";l.defaults.headers.common["x-api-key"]=h;const g=()=>l.get("/breeds"),y=r=>{const t=new URLSearchParams({breed_ids:r});return l.get(`/images/search?${t}`)};function b(r){return r.breeds.map(({name:t,description:s,temperament:i})=>`
-    <img src="${r.url}" width="500" alt="${t}" class="img" />
-    <div>
-      <h2 class="title">${t}</h2>
-      <p class="desc">${s}</p>
-      <p class="desc"><b>Temperament: </b>${i}</p>
-    </div>
-  `).join("")}function f(){p.show({title:"Oops!",message:"Something went wrong! Try reloading the page!",color:"red",position:"topRight"})}let u=!1;const n={select:document.querySelector(".breed-select"),loader:document.querySelector(".loader"),catInfo:document.querySelector(".cat-info")},c=new m({select:n.select,settings:{placeholderText:"Filter cats breeds",disabled:!0}});a(!0);g().then(({data:r})=>{c.setData(r.map(({id:t,name:s})=>({value:t,text:s}))),u=!0,c.enable()}).catch(()=>f()).finally(()=>a(!1));n.select.addEventListener("change",({target:{value:r}})=>{u&&(c.disable(),n.catInfo.innerHTML="",a(!0),y(r).then(({data:t})=>{const[s]=t;if(!s)throw new Error;n.catInfo.innerHTML=b(s),c.enable()}).catch(()=>f()).finally(()=>a(!1)))});function a(r){r?n.loader.style.display="block":n.loader.style.display="none"}
+        <img src="${r.url}" width="500" alt="${t}" class="img" />
+        <div>
+          <h2 class="title">${t}</h2>
+          <p class="desc">${s}</p>
+          <p class="desc"><b>Temperament: </b>${i}</p>
+        </div>
+      `).join("")}function f(){p.show({title:"Oops!",message:"Something went wrong! Try reloading the page!",color:"red",position:"topRight"})}let u=!1;const n={select:document.querySelector(".breed-select"),loader:document.querySelector(".loader"),catInfo:document.querySelector(".cat-info")},c=new m({select:n.select,settings:{placeholderText:"Filter cats breeds",disabled:!0}});a(!0);g().then(({data:r})=>{c.setData(r.map(({id:t,name:s})=>({value:t,text:s}))),u=!0,c.enable()}).catch(()=>f()).finally(()=>a(!1));n.select.addEventListener("change",({target:{value:r}})=>{u&&(c.disable(),n.catInfo.innerHTML="",a(!0),y(r).then(({data:t})=>{const[s]=t;if(!s)throw new Error;n.catInfo.innerHTML=b(s),c.enable()}).catch(()=>f()).finally(()=>a(!1)))});function a(r){r?n.loader.style.display="block":n.loader.style.display="none"}
 //# sourceMappingURL=commonHelpers.js.map
